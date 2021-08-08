@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BotonAzul extends StatelessWidget {
   final String text;
 
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final ButtonStyle style = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20, color: Colors.red),
       shape: StadiumBorder());

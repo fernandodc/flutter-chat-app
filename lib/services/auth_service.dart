@@ -40,7 +40,7 @@ class AuthService extends ChangeNotifier {
     final Map<String, dynamic> data = {"email": email, "password": password};
 
     final url = Uri.parse('${Enviromment.apiUrl}/login');
-    print('url::$url');
+
     try {
       final resp = await http.post(
         url,

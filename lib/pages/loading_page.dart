@@ -1,6 +1,7 @@
 import 'package:chat_app/pages/login_page.dart';
 import 'package:chat_app/pages/usuarios_page.dart';
 import 'package:chat_app/services/auth_service.dart';
+import 'package:chat_app/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,7 @@ class LoadingPage extends StatelessWidget {
         future: checkLoginState(context),
         builder: (context, snapshot) {
           return Center(
-            child: Text('Espere..'),
+            child: Text('Connecting..'),
           );
         },
       ),
@@ -21,10 +22,11 @@ class LoadingPage extends StatelessWidget {
 
   Future checkLoginState(BuildContext context) async {
     final authService = Provider.of<AuthService>(context, listen: false);
+    final socketService = Provider.of<SocketService>(context, listen: false);
     final autenticado = await authService.isLoggedIn();
     print("Valor de autenticado::$autenticado");
     if (autenticado) {
-      //TODO: Conectar al socket server
+      socketService.connect();
       Navigator.pushReplacement(context,
           PageRouteBuilder(pageBuilder: (_, __, ___) => UsuariosPage()));
     } else {
